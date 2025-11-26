@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body { background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}"); background-size:cover; background-position:center; background-attachment:fixed; }
+  body::before { content:""; position:fixed; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)); z-index:-1; }
+  .sensor-container { background: rgba(20,24,20,0.6); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); padding: 24px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color:#e9f5ea; border:1px solid rgba(255,255,255,0.14); animation: fadeIn .8s ease-out; }
+  .sensor-title { text-align:center; margin:0 0 10px; font-size:2.1rem; font-weight:900; color:#ffe0b2; text-shadow:0 2px 12px rgba(0,0,0,0.6); }
+  .sensor-sub { text-align:center; color:#f1f8e9; opacity:.9; margin:-4px 0 16px; }
+  .panel { background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.06)); border:1px solid rgba(255,255,255,0.18); border-radius:16px; padding:16px; margin:12px 0; box-shadow:0 4px 18px rgba(0,0,0,0.25); }
+  .panel h3 { margin-top:0; font-weight:800; letter-spacing:.2px; color:#f5fff6; }
+  .panel ul, .panel p { color:#e6f5e7; }
+  .email-form form { display:flex; gap:8px; }
+  .email-form input[type="email"] { flex:1; padding:12px; border-radius:10px; border:1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.15); color:#fff; }
+  .email-form button { padding:12px 16px; border-radius:10px; border:0; background: linear-gradient(90deg,#ff7b00,#ff4e50); color:#fff; font-weight:800; }
+  @keyframes fadeIn { from{opacity:0; transform: translateY(20px);} to{opacity:1; transform:none;} }
+</style>
+
+<div class="sensor-container">
+  <h2 class="sensor-title">📡 Smart Sensor Dashboard</h2>
+  <div class="sensor-sub">Live soil data and tailored recommendations</div>
+
+  <div class="panel sensor-data">
+    <h3>🌱 Current Sensor Values</h3>
+    <ul>
+      <li><b>Nitrogen (N):</b> {{ sensor.N }}</li>
+      <li><b>Phosphorus (P):</b> {{ sensor.P }}</li>
+      <li><b>Potassium (K):</b> {{ sensor.K }}</li>
+      <li><b>Moisture:</b> {{ sensor.moisture }} %</li>
+      <li><b>Temperature:</b> {{ sensor.temp }} °C</li>
+      <li><b>pH:</b> {{ sensor.ph }}</li>
+    </ul>
+  </div>
+
+  <div class="panel recommendations">
+    <h3>🌾 Recommendations</h3>
+    {% if recommendations %}
+      <ul>
+        {% for r in recommendations %}
+          <li>{{ r }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No recommendations yet. Enter your email to get suggestions.</p>
+    {% endif %}
+  </div>
+
+  <div class="panel email-form">
+    <h3>📧 Get Alerts</h3>
+    <form method="post" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" id="alertsForm">
+      <!-- hidden decoys to suppress autofill -->
+      <input type="text" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;">
+      <input type="password" autocomplete="new-password" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;">
+      <!-- real email value goes here just before submit -->
+      <input type="hidden" name="email" id="realEmail">
+      <!-- visible field uses a random name to avoid autofill matches -->
+      <input type="text" name="contact_identifier" id="visibleEmail" inputmode="email" placeholder="Enter your email" required autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" readonly>
+      <button type="submit">Send My Recommendations</button>
+    </form>
+    <script>
+      (function(){
+        var v = document.getElementById('visibleEmail');
+        var form = document.getElementById('alertsForm');
+        var real = document.getElementById('realEmail');
+        if (v) {
+          var unlock = function(){ v.removeAttribute('readonly'); };
+          v.addEventListener('focus', unlock, { once:true });
+          v.addEventListener('mousedown', unlock, { once:true });
+        }
+        if (form) {
+          form.addEventListener('submit', function(e){
+            var val = (v && v.value || '').trim();
+            var ok = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(val);
+            if (!ok) { e.preventDefault(); alert('Please enter a valid email address.'); return false; }
+            real.value = val; // copy into the real email field used by the server
+          });
+        }
+      })();
+    </script>
+  </div>
+</div>
+
+{% endblock %}

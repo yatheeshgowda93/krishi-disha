@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='images/front2.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: "Poppins", Arial, sans-serif;
+    color: #fff;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  /* Welcome Section */
+  .welcome-banner {
+    position: absolute;
+    top: 15%;   /* 👈 moved higher */
+    left: 70px;
+    text-align: left;
+    animation: fadeInUp 1.2s ease-out;
+  }
+
+  .welcome-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    margin: 0 0 18px;
+    color: #ff7b00; /* Orange */
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  }
+
+  .welcome-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.9;
+    max-width: 700px;
+    color: #f5f5f5;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+    margin-bottom: 25px;
+  }
+
+  /* Get Started button */
+  .start-btn {
+    display: inline-block;
+    padding: 14px 34px;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(90deg, #ff7b00, #ff4e50);
+    border: none;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+  }
+
+  .start-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="welcome-banner">
+  <h1 class="welcome-title">
+    {% if lang == 'kn' %}
+      ಕೃಷಿ ದಿಶಾ ಗೆ ಸ್ವಾಗತ
+    {% else %}
+      Welcome to Krishi Disha
+    {% endif %}
+  </h1>
+
+  <p class="welcome-subtitle">
+    {% if lang == 'kn' %}
+    ಕೃಷಿ ದಿಶಾ ರೈತರಿಗೆ ಬೆಳೆ ಆಯ್ಕೆ, ಬಿತ್ತನೆ ಸಮಯ ಮತ್ತು ನಿರ್ವಹಣೆಯಲ್ಲಿ ಸರಳ ಮಾರ್ಗದರ್ಶನ ನೀಡುತ್ತದೆ. ನೈಜ ಸಮಯದ ಶಿಫಾರಸುಗಳು ಮತ್ತು ಸುಲಭ ಉಪಯೋಗದ ಉಪಕರಣಗಳೊಂದಿಗೆ, ನಾವು ಕೃಷಿಯನ್ನು ಹೆಚ್ಚು ಸುಗಮ, ಪರಿಣಾಮಕಾರೀ ಮತ್ತು ಶಕ್ತಿ ಪೂರಿತವಾಗಿಸಲು ಪ್ರಯತ್ನಿಸುತ್ತಿದ್ದೇವೆ.
+    {% else %}
+    Krishi Disha provides farmers with simple guidance on crop selection, sowing time, and crop care. With real-time recommendations and easy-to-use tools, we strive to make agriculture more intuitive, effective, and empowering.
+    {% endif %}
+  </p>
+
+  <!-- Get Started Button -->
+  <a href="{{ url_for('login') }}" class="start-btn">
+    {% if lang == 'kn' %} ಪ್ರಾರಂಭಿಸಿ {% else %} Get Started {% endif %}
+  </a>
+</div>
+
+{% endblock %}

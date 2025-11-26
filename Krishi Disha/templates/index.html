@@ -1,0 +1,113 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- Hero Section -->
+<section class="hero">
+  <style>
+    .hero {
+        background-image: url("{{ url_for('static', filename='images/guide-bg.jpg') }}");
+        background-size: cover;
+        background-position: center;
+        height: 40vh;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding-top: 30px;
+        color: #fff;
+        text-align: center;
+    }
+    .hero-title {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        margin-top: -10px;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem;
+        max-width: 800px;
+        margin: 60px auto 0;
+    }
+  </style> 
+  <h1 class="hero-title"><b>{{ t['hero_title'] }}</b></h1>
+  <p class="hero-subtitle"><b>{{ t['hero_subtitle'] }}</b></p>
+</section>
+
+<!-- Cards Section -->
+<section class="cards">
+  <div class="card card-crops">
+    <h3>{{ t['crops_card_title'] }}</h3>
+    <p>{{ t['crops_card_desc'] }}</p>
+    <a href="{{ url_for('crops') }}">{{ t['crops_card_link'] }}</a>
+  </div>
+
+  <div class="card card-fertilizers">
+    <h3>{{ t['fert_card_title'] }}</h3>
+    <p>{{ t['fert_card_desc'] }}</p>
+    <a href="{{ url_for('fertilizers') }}">{{ t['fert_card_link'] }}</a>
+  </div>
+
+  <div class="card card-guide">
+    <h3>{{ t['guide_card_title'] }}</h3>
+    <p>{{ t['guide_card_desc'] }}</p>
+    <a href="{{ url_for('guide') }}">{{ t['guide_card_link'] }}</a>
+  </div>
+
+  <div class="card card-sensor">
+    <h3>{{ t['sensor_card_title'] }}</h3>
+    <p>{{ t['sensor_card_desc'] }}</p>
+    <a href="{{ url_for('sensor_dashboard') }}">{{ t['sensor_card_link'] }}</a>
+  </div>
+</section>
+
+<!-- Inline CSS -->
+<style>
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+@media (max-width: 700px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+.card {
+  border-radius: 12px;
+  padding: 16px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  transition: transform 0.2s ease-in-out;
+}
+.card:hover { transform: scale(1.03); }
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+  z-index: 0;
+}
+.card * { position: relative; z-index: 1; }
+.card-crops {
+  background: url("{{ url_for('static', filename='images/crops-bg.jpg') }}") no-repeat center/cover;
+}
+.card-fertilizers {
+  background: url("{{ url_for('static', filename='images/fertilizers-bg.jpg') }}") no-repeat center/cover;
+}
+.card-guide {
+  background: url("{{ url_for('static', filename='images/home.jpg') }}") no-repeat center/cover;
+}
+.card-sensor {
+  background: url("{{ url_for('static', filename='images/front4.jpg') }}") no-repeat center/cover;
+}
+.card a { color: #fff; font-weight: 600; text-decoration: underline; }
+</style>
+
+{% endblock %}
+

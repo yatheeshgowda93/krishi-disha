@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body {
+    background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35));
+    z-index: -1;
+  }
+  .fertilizer-container {
+    background: rgba(20, 24, 20, 0.6);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    padding: 28px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    color: #e9f5ea;
+    animation: fadeIn 0.8s ease-out;
+    border: 1px solid rgba(255,255,255,0.14);
+  }
+  .fertilizer-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #ffe0b2;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.6);
+    margin: 0 0 18px;
+    letter-spacing: 0.3px;
+  }
+  .fertilizer-subtitle {
+    text-align: center;
+    color: #f1f8e9;
+    opacity: 0.9;
+    margin: -6px 0 18px;
+    font-size: 1rem;
+  }
+  .fertilizer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .grid.fertilizer-grid .tile {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.10), rgba(255,255,255,0.06));
+    color: #f5fff6;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 16px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+  }
+  .grid.fertilizer-grid .tile:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    border-color: rgba(255,255,255,0.32);
+  }
+  .grid.fertilizer-grid .tile h3 {
+    margin-top: 0;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+  }
+  .grid.fertilizer-grid .tile p { color: #e6f5e7; }
+  .grid.fertilizer-grid .tile b { color: #c8ffdd; font-weight: 700; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<div class="fertilizer-container">
+  <h2 class="fertilizer-title">{{ t['fertilizers'] }}</h2>
+  <div class="fertilizer-subtitle">🌿 {{ t['fertilizers_subtitle'] }}</div>
+  <div class="grid fertilizer-grid">
+    {% for f in fertilizers %}
+    <div class="tile">
+      <h3>{{ f.name_kn if lang == "kn" else f.name }}</h3>
+      <p>🧪 <b>N-P-K</b>: {{ f.npk }}</p>
+      <p>🧭 <b>{{ "ಬಳಕೆ" if lang == "kn" else "Use" }}</b>: {{ f.use_kn if lang == "kn" else f.use }}</p>
+      <p>⏱️ <b>{{ "ಯಾವಾಗ ಬಳಸುವುದು" if lang == "kn" else "When to apply" }}</b>: {{ f.when_kn if lang == "kn" else f.when }}</p>
+      <p>📍 <b>{{ "ಯಾವ ಸ್ಥಳದಲ್ಲಿ ಬಳಸುವುದು" if lang == "kn" else "Where to apply" }}</b>: {{ f.where_kn if lang == "kn" else f.where }}</p>
+      <p>📝 <b>{{ "ಸೂಚನೆ" if lang == "kn" else "Notes" }}</b>: {{ f.notes_kn if lang == "kn" else f.notes }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% for category, message in messages %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endwith %}
+</div>
+{% endblock %}

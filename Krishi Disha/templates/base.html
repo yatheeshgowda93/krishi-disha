@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="{{ lang }}" translate="no">
+<head>
+  <meta charset="utf-8">
+  <title>Krishi Disha – Farmer Knowledge Portal</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google" content="notranslate">
+</head>
+<body>
+
+{% if request.endpoint == 'home' %}
+<style>
+body {
+    background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.35);
+    z-index: -1;
+}
+</style>
+{% endif %}
+
+{% if request.endpoint != 'landing' %}
+<header class="site-header">
+  <div class="brand">
+    🌱 Krishi Disha
+  </div>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="Toggle navigation">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <nav id="primaryNav" class="nav-links">
+    {% if session.get('username') %}
+      <a href="{{ url_for('home') }}">{{ t['home'] }}</a>
+      <a href="{{ url_for('crops') }}">{{ t['crops'] }}</a>
+      <a href="{{ url_for('fertilizers') }}">{{ t['fertilizers'] }}</a>
+      <a href="{{ url_for('guide') }}">{{ t['guide'] }}</a>
+      <a href="{{ url_for('sensor_dashboard') }}">{{ t['sensor'] }}</a>
+    {% endif %}
+  </nav>
+  <div class="header-right">
+    <form method="get" action="{{ url_for('set_language') }}">
+      <label for="lang-select" class="sr-only">Choose language</label>
+      <select id="lang-select" name="lang" onchange="this.form.submit()">
+        <option value="en" {% if lang == 'en' %}selected{% endif %}>English</option>
+        <option value="kn" {% if lang == 'kn' %}selected{% endif %}>ಕನ್ನಡ</option>
+      </select>
+    </form>
+    {% if session.get('username') %}
+      <span>Hi, {{ session['username'] }}</span>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    {% endif %}
+  </div>
+</header>
+{% else %}
+<!-- Minimal header for landing page -->
+<div class="landing-header">
+  <form method="get" action="{{ url_for('set_language') }}">
+    <label for="landing-lang-select" class="sr-only">Choose language</label>
+    <select id="landing-lang-select" name="lang" onchange="this.form.submit()">
+      <option value="en" {% if lang == 'en' %}selected{% endif %}>English</option>
+      <option value="kn" {% if lang == 'kn' %}selected{% endif %}>ಕನ್ನಡ</option>
+    </select>
+  </form>
+</div>
+{% endif %}
+
+<main>
+  {% block content %}{% endblock %}
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var body = document.body;
+    var toggle = document.querySelector('.menu-toggle');
+    var header = document.querySelector('.site-header');
+    if (!toggle || !header) {
+      return;
+    }
+
+    toggle.addEventListener('click', function (event) {
+      event.stopPropagation();
+      var isOpen = body.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', function (event) {
+      if (!header.contains(event.target)) {
+        body.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+</script>
+</body>
+</html>

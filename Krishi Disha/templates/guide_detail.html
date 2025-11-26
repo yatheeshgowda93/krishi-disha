@@ -1,0 +1,60 @@
+
+{% extends "base.html" %}
+{% block content %}
+<h2><center>{{ t['step_title'] }}</center></h2>
+
+<div class="guide-container">
+  <form class="form" action="{{ url_for('guide_result') }}" method="post">
+    <label>Season
+      <select name="season">
+        <option>Any</option>
+        <option>Kharif</option>
+        <option>Rabi</option>
+        <option>Zaid</option>
+      </select>
+    </label>
+
+    <label>Irrigation
+      <select name="irrigation">
+        <option>Any</option>
+        <option>Irrigated</option>
+        <option>Rainfed</option>
+      </select>
+    </label>
+
+    <label>Soil pH (optional)
+      <input name="soil_ph" type="number" step="0.1" placeholder="e.g., 6.5">
+    </label>
+
+    <label>Duration preference
+      <select name="duration">
+        <option>Any</option>
+        <option>Short</option>
+        <option>Medium</option>
+        <option>Long</option>
+      </select>
+    </label>
+
+    <button type="submit">Get Suggestions</button>
+  </form>
+
+  {% if results %}
+  <div class="results-box">
+    <h3>{{ t['suggested_crops'] }}</h3>
+    <ul>
+      {% for item in results %}
+        <li>
+          {{ item.crop.name }} – season: {{ item.crop.seasons|join(', ') }},
+          irrigation: {{ item.crop.irrigation }},
+          duration: {{ item.crop.duration_category }}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% elif hint %}
+    <div class="results-box">
+      <p>{{ hint }}</p>
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

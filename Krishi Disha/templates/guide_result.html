@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body { background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}"); background-size: cover; background-position: center; background-attachment: fixed; }
+  body::before { content: ""; position: fixed; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)); z-index: -1; }
+  .fertilizer-container { background: rgba(20, 24, 20, 0.6); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); padding: 28px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #f5e9f1; animation: fadeIn 0.8s ease-out; border: 1px solid rgba(255,255,255,0.14); max-width: 1100px; margin: 40px auto; }
+  .fertilizer-title { text-align: center; font-size: 2rem; font-weight: 800; color: #ffcc80; text-shadow: 1px 1px 6px rgba(0,0,0,0.6); margin: 0 0 16px; }
+  .fertilizer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .fertilizer-grid .tile { background: rgba(255, 255, 255, 0.15); color: #ffffff; border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 16px; box-shadow: 0 4px 18px rgba(0,0,0,0.25); }
+  .back-link { text-decoration: none; color: #ff7b00; font-weight: 800; }
+  .back-link:hover { text-decoration: underline; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<div class="fertilizer-container">
+  <h2 class="fertilizer-title">{{ t['suggested_crops'] }}</h2>
+  {% if results %}
+  <div class="fertilizer-grid">
+    {% for item in results %}
+    <div class="tile">
+      <h3>🌱 {{ item.crop.name_kn if lang=="kn" else item.crop.name }}</h3>
+      <p><b>{{ t['season'] }}:</b> {{ item.crop.seasons_kn|join(', ') if lang=="kn" else item.crop.seasons|join(', ') }}</p>
+      <p><b>{{ t['irrigation'] }}:</b> {{ item.crop.irrigation_kn if lang=="kn" else item.crop.irrigation }}</p>
+      <p><b>{{ t['duration'] }}:</b> {{ item.crop.duration_category_kn if lang=="kn" else item.crop.duration_category }}</p>
+      <p><b>{{ t['sowing_window'] }}:</b> {{ item.crop.sowing_window_kn if lang=="kn" else item.crop.sowing_window }}</p>
+      <p><b>{{ t['harvest_window'] }}:</b> {{ item.crop.harvest_window_kn if lang=="kn" else item.crop.harvest_window }}</p>
+      <p><b>{{ t['fertilizer'] }}:</b> {{ item.crop.fertilizer_baseline_kn if lang=="kn" else item.crop.fertilizer_baseline }}</p>
+      {% if lang=="kn" and item.crop.cultivation_guide_kn %}
+        <hr>
+        <p><b>{{ t['climate'] }}:</b> {{ item.crop.cultivation_guide_kn.climate }}</p>
+        <p><b>{{ t['soil'] }}:</b> {{ item.crop.cultivation_guide_kn.soil }}</p>
+        <p><b>{{ t['seed_rate'] }}:</b> {{ item.crop.cultivation_guide_kn.seed_rate }}</p>
+        <p><b>{{ t['spacing'] }}:</b> {{ item.crop.cultivation_guide_kn.spacing }}</p>
+        <p><b>{{ t['yield'] }}:</b> {{ item.crop.cultivation_guide_kn.yield }}</p>
+      {% elif item.crop.cultivation_guide %}
+        <hr>
+        <p><b>{{ t['climate'] }}:</b> {{ item.crop.cultivation_guide.climate }}</p>
+        <p><b>{{ t['soil'] }}:</b> {{ item.crop.cultivation_guide.soil }}</p>
+        <p><b>{{ t['seed_rate'] }}:</b> {{ item.crop.cultivation_guide.seed_rate }}</p>
+        <p><b>{{ t['spacing'] }}:</b> {{ item.crop.cultivation_guide.spacing }}</p>
+        <p><b>{{ t['yield'] }}:</b> {{ item.crop.cultivation_guide.yield }}</p>
+      {% endif %}
+      <p>👉 {{ item.crop.info_kn if lang=="kn" else item.crop.info }}</p>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+    <p>{{ "ಯಾವುದೇ ಬೆಳೆಗಳು ಹೊಂದಿಕೆಯಾಗಿಲ್ಲ." if lang=="kn" else "No crops matched your selection." }}</p>
+    {% if hint %}
+      <p><i>{{ t['result_hint'] if lang=="kn" else hint }}</i></p>
+    {% endif %}
+  {% endif %}
+
+  <p style="margin-top:20px; text-align:center;">
+    <a href="{{ url_for('guide') }}" class="back-link">⬅ {{ t['back_to_list'] }}</a>
+  </p>
+</div>
+
+{% endblock %}

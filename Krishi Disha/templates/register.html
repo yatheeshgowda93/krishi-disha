@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register - Krishi Disha</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      font-family: "Poppins", Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: -1;
+    }
+
+  .register-container {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  padding: 20px 30px;
+  border-radius: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+  text-align: center;
+  width: 700px;   /* smaller width */
+  max-width: 95%;
+  color: #fff;
+  animation: fadeIn 1s ease-out;
+}
+
+
+    .title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+      color: #ff7b00;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    form label {
+      display: block;
+      margin: 15px 0 8px;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #f5f5f5;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: 2px solid #ff7b00;
+    }
+
+    button {
+      background: linear-gradient(90deg, #ff7b00, #ff4e50);
+      color: white;
+      padding: 14px;
+      border: none;
+      width: 100%;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    p {
+      margin-top: 25px;
+      font-size: 1rem;
+      color: #eee;
+    }
+
+    a {
+      color: #ffcc80;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .flash {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    .flash.success {
+      background-color: rgba(76, 175, 80, 0.9);
+      color: white;
+    }
+
+    .flash.error {
+      background-color: rgba(244, 67, 54, 0.9);
+      color: white;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="register-container">
+    <div class="title">Krishi Disha</div>
+    <h2>Create Your Account</h2>
+    <form method="post" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off">
+      <!-- hidden decoys to discourage autofill suggestions -->
+      <input type="text" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;">
+      <input type="password" autocomplete="new-password" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;">
+      <label>Full Name</label>
+      <input type="text" name="fullname" required autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" readonly>
+
+      <label>Email</label>
+      <input type="email" name="email" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" readonly>
+
+      <label>Username</label>
+      <input type="text" name="username" required autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" readonly>
+
+      <label>Password</label>
+      <input type="password" name="password" required autocomplete="new-password" spellcheck="false" autocapitalize="off" autocorrect="off" readonly>
+
+      <button type="submit">Register</button>
+    </form>
+    <script>
+      (function() {
+        var fields = document.querySelectorAll('input[name="fullname"], input[name="email"], input[name="username"], input[name="password"]');
+        fields.forEach(function(field){
+          field.addEventListener('focus', function(){ field.removeAttribute('readonly'); }, { once: true });
+          field.addEventListener('mousedown', function(){ field.removeAttribute('readonly'); }, { once: true });
+        });
+      })();
+    </script>
+    <p>Already have an account? <a href="{{ url_for('login') }}">Login here</a></p>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+</body>
+</html>

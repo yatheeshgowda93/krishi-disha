@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  body { background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}"); background-size:cover; background-position:center; background-attachment:fixed; }
+  body::before { content:""; position:fixed; inset:0; background: linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.35)); z-index:-1; }
+  .crop-shell { position:relative; max-width: 1100px; margin: 40px auto; padding: 28px; background: rgba(18,22,18,0.62); color:#e9f5ea; border-radius: 22px; border:1px solid rgba(255,255,255,0.16); box-shadow: 0 18px 48px rgba(0,0,0,0.55); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); animation: fadeIn .8s ease-out; }
+  .crop-title { text-align:center; margin: 0 0 14px; font-size:2.1rem; font-weight:900; color:#ffe0b2; text-shadow:0 2px 12px rgba(0,0,0,0.6); }
+  .details, .info { background: linear-gradient(180deg, rgba(253, 236, 249, 0.96), rgba(242, 224, 233, 0.94)); color:#0f2a1a; border:1px solid rgba(16,42,26,0.10); border-radius:16px; box-shadow: 0 12px 28px rgba(0,0,0,0.28); }
+  .details { list-style: none; padding: 16px; }
+  .details li { margin: 8px 0; }
+  .info { padding: 16px; margin-top: 16px; }
+  .back-link { display:inline-block; margin-top:14px; color:#ff7b00; font-weight:800; text-decoration:none; }
+  .back-link:hover { text-decoration: underline; }
+  @keyframes fadeIn { from{opacity:0; transform: translateY(20px);} to{opacity:1; transform:none;} }
+</style>
+
+{% if not crop %}
+  <div class="crop-shell">
+    <h2 class="crop-title">{{ "ಬೆಳೆ ದೊರಕಲಿಲ್ಲ" if lang == "kn" else "Crop not found" }}</h2>
+    <p style="text-align:center"><a class="back-link" href="{{ url_for('crops') }}">{{ t['back_to_list'] }}</a></p>
+  </div>
+{% else %}
+  <div class="crop-shell">
+    <h2 class="crop-title">{{ crop['name_kn'] if lang == "kn" else crop['name'] }}</h2>
+    <ul class="details">
+      <li><b>{{ t['crops'] }}:</b> {{ ", ".join(crop['seasons_kn']) if lang == "kn" else ", ".join(crop['seasons']) }}</li>
+      <li><b>{{ t['step_title'] }}:</b> {{ crop['duration_days'] }} days ({{ crop['duration_category_kn'] if lang == "kn" else crop['duration_category'] }})</li>
+      <li><b>{{ t['sowing_window'] }}:</b> {{ crop['sowing_window_kn'] if lang == "kn" else crop['sowing_window'] }}</li>
+      <li><b>{{ t['harvest_window'] }}:</b> {{ crop['harvest_window_kn'] if lang == "kn" else crop['harvest_window'] }}</li>
+      <li><b>{{ t['irrigation'] }}:</b> {{ crop['irrigation_kn'] if lang == "kn" else crop['irrigation'] }}</li>
+      <li><b>{{ t['soil_ph'] }}:</b> {{ crop['soil_ph_min'] }} – {{ crop['soil_ph_max'] }}</li>
+      <li><b>{{ t['fertilizer'] }}:</b> {{ crop['fertilizer_baseline_kn'] if lang == "kn" else crop['fertilizer_baseline'] }}</li>
+    </ul>
+    <p class="info">{{ crop['info_kn'] if lang == "kn" else crop['info'] }}</p>
+    <a href="{{ url_for('crops') }}" class="back-link">{{ t["back_to_crops"] }}</a>
+  </div>
+{% endif %}
+{% endblock %}

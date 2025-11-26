@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Login - Krishi Disha</title>
+  <style>
+    body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Poppins", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("{{ url_for('static', filename='images/pexels-freestockpro-1172241.jpg') }}");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.45);
+      z-index: -1;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      padding: 60px 80px;
+      border-radius: 30px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 700px;
+      max-width: 90%;
+      color: #fff;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: #ff7b00;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #fff;
+    }
+
+    form label {
+      display: block;
+      margin: 20px 0 10px;
+      text-align: left;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #f5f5f5;
+    }
+
+    input[type="text"],
+    input[type="password"] {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: 2px solid #ff7b00;
+    }
+
+    button {
+      background: linear-gradient(90deg, #ff7b00, #ff4e50);
+      color: white;
+      padding: 15px;
+      border: none;
+      width: 100%;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    p { margin-top: 20px; font-size: 1rem; color: #eee; }
+
+    .flash { margin-top: 20px; padding: 15px; border-radius: 10px; font-size: 1rem; font-weight: 500; }
+    .flash.success { background-color: rgba(76, 175, 80, 0.9); color: white; }
+    .flash.error { background-color: rgba(244, 67, 54, 0.9); color: white; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="title">Krishi Disha</div>
+    <h2>Admin Login</h2>
+    <form method="post" autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off">
+      <!-- hidden decoys to defeat browser-saved suggestions/autofill -->
+      <input type="text" autocomplete="username" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;">
+      <input type="password" autocomplete="new-password" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;opacity:0;height:0;width:0;border:0;padding:0;">
+      <label>Username</label>
+      <input type="text" name="username" placeholder="Enter admin username" required autocomplete="off" spellcheck="false" autocapitalize="off" autocorrect="off" readonly>
+
+      <label>Password</label>
+      <input type="password" name="password" placeholder="Enter admin password" required autocomplete="new-password" spellcheck="false" autocapitalize="off" autocorrect="off" readonly>
+
+      <button type="submit">Login</button>
+    </form>
+    <script>
+      (function() {
+        var fields = document.querySelectorAll('input[name="username"], input[name="password"]');
+        fields.forEach(function(field){
+          field.addEventListener('focus', function(){ field.removeAttribute('readonly'); }, { once: true });
+          field.addEventListener('mousedown', function(){ field.removeAttribute('readonly'); }, { once: true });
+        });
+      })();
+    </script>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+</body>
+</html>
+
