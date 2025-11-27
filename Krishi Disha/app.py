@@ -13,9 +13,11 @@ import json
 from datetime import datetime, timedelta
 try:
     import firebase_admin
+    from create_tables import create_tables
     from firebase_admin import credentials, db as firebase_db
 except Exception:
     firebase_admin = None
+
 
 
 app = Flask(__name__)
@@ -1032,10 +1034,18 @@ def process_emails():
     flash("Scheduled emails processed", "success")
     return redirect(url_for('sensor_dashboard'))
 
-if __name__ == "__main__":
+
+    # Process any pending scheduled emails on startup
+   if __name__ == "__main__":
     # Process any pending scheduled emails on startup
     print(f"[{time.strftime('%H:%M:%S')}] Starting Krishi Disha app...")
+    
+    # Create database tables if they don't exist
+    print(f"[{time.strftime('%H:%M:%S')}] Checking database tables...")
+    create_tables()
+    
     print(f"[{time.strftime('%H:%M:%S')}] Processing any pending scheduled emails...")
     process_scheduled_emails()
     print(f"[{time.strftime('%H:%M:%S')}] App ready!")
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5001)))
+    
