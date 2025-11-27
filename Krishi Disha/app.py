@@ -19,13 +19,14 @@ except Exception:
 
 
 app = Flask(__name__)
-app.secret_key = "supersecret"  # Needed for sessions
+app.secret_key = os.environ.get('SECRET_KEY', 'supersecret')  # Needed for sessions
 
 # ---------------- DB CONFIG ----------------
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'sahan@135'
-app.config['MYSQL_DB'] = 'krishidisha'
+app.config['MYSQL_HOST'] = os.environ.get('MYSQL_HOST', 'localhost')
+app.config['MYSQL_USER'] = os.environ.get('MYSQL_USER', 'root')
+app.config['MYSQL_PASSWORD'] = os.environ.get('MYSQL_PASSWORD', 'sahan@135')
+app.config['MYSQL_DB'] = os.environ.get('MYSQL_DB', 'krishidisha')
+app.config['MYSQL_PORT'] = int(os.environ.get('MYSQL_PORT', 3306))
 mysql = MySQL(app)
 
 # ---------------- MAIL CONFIG ----------------
@@ -1037,4 +1038,4 @@ if __name__ == "__main__":
     print(f"[{time.strftime('%H:%M:%S')}] Processing any pending scheduled emails...")
     process_scheduled_emails()
     print(f"[{time.strftime('%H:%M:%S')}] App ready!")
-    app.run(debug=True, port=5001)
+    app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5001)))
