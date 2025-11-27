@@ -1036,7 +1036,7 @@ def process_emails():
 
 
     # Process any pending scheduled emails on startup
-   if __name__ == "__main__":
+if __name__ == "__main__":
     # Process any pending scheduled emails on startup
     print(f"[{time.strftime('%H:%M:%S')}] Starting Krishi Disha app...")
     
@@ -1048,4 +1048,3 @@ def process_emails():
     process_scheduled_emails()
     print(f"[{time.strftime('%H:%M:%S')}] App ready!")
     app.run(debug=True, host='0.0.0.0', port=int(os.environ.get('PORT', 5001)))
-    
