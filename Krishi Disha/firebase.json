@@ -1,0 +1,14 @@
+{
+  "type": "service_account",
+  "project_id": "soil-health-project",
+  "databaseURL": "https://soil-health-project-default-rtdb.firebaseio.com",
+  "private_key_id": "965d73577b7ac3c99bad170fe71e933afd375891",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDMMURxTRPk2MkB\nvgPpvrgKBsBwFP+VHjCq0i5TkAIpZy3T8NzFaT3NZ/HuaYdwp6d1xXoh1ARL6FP/\n3LCuvVyvFvz6fXkupcbeFj8eUHqSJBxE4Sy7mvX5aDWuhPZqUboszERaDj8cbyKS\nQbjdmtmGfSdOyCiX40cuyL1qZzLk5a7Fo5LI6CY8UzHTEfIG7i1fFuVYqKBntNfl\nGjiSYCyVAMdgX7BnpK9lWOLMyb/ls9xo6YQfOrAUdyngz4nWWrrH02BCHnp/K0nM\nLV2I1W9FmzrAg50PevI/5OYe97J/MRnBU+y504+z8rYDTtO22ygQjSD5NLZ9/8uj\n/Q1QlbgdAgMBAAECggEAA7+HxRioG9RK5EhLpBfHIw/6qlQIWQFj3U7cYNZM49us\nAK70Ln9/De0xiLHRNaUuMsA8PLC6n3YVTKYNbDe3otMmM6bn+Y47d0orQHAzv8j/\n59fGTW9LwpdCHQD90PfNFhNt0cVfLTNxDAQ+03qLMafMd+q+rAMVBGvU5kYcrgzs\n4dqplwZjajMQofPiQW5easwY/U3uYl189RwjqDZRaK7kyLYilhQKiWqngWzXurV1\nas9i182Pf8B6RmRGUIg0nAAMJ187vPs3jvPKUmaDnS8878J2gBV/NOdskn2M95VP\nCV9jQWXLuo78iQwKWj7fqLQ53eGxbHDJHQKtxl7fYQKBgQDqm75WabPy0+sK8i0r\n6ZJ44LVkZOH7o5QN/X09J0uGX2aXM3CWM2namPFO23K/f82O2QjOTPlnhrfbyb/x\nPGZI9xM0i+/yBk9+S2UdHNsj23j2VN8OR8C4wAzVtgyFr6fYI3MrxF0hGffX2JR3\nflBjxX6oIk4ZVW77WvWqnpGtqQKBgQDez41BHrrPepsMD9AWfI9ys+Wy4ACXgmZO\nWkrj73LJvzhpt0WmLpA/GglSzwE1sZ3sd6kHtaddIQLB4b5eVb9tTYZ4BJ+B1F9n\nc00xsqmjypB4+5/SHzB69PabLKtzOCz7P03JhD3MzAyCp7uNUS3K+traR5EAuJZw\n/mE7vgH3VQKBgARtniEZa6kYsOYK/ilHBlm7vBDCCrXqN4AwGa4O0NEfeds+wFBF\ndikHG/7mC3tr2SBqHk1ujIKUu2GtpC7UegXEjBtAzO2fit6SY70x7zz1Bop3vaIS\nXqPeFB/wiLn5P8zHloPr9+oJCHGNh/fdbX0EnEhmJV07DJY3+E0ZIxzJAoGBAII5\njLWi4EyjvDswgs6hvrWrr3T8t1vWOzVQULUoHk8MFEy1cV/Plz9KWGit1GctiL/M\nsF5xLYCg6pum9TztoRShWxaKnS+kkJ5GJbgGVGAG5KnRZ3fIAu3afsfzM8ID80Zl\nmXFOeVBZcnZq0pOl/r3EIGWzrmxddpBUHUBtrXiBAoGAVgHTe0eKTmK82wBCXcZ/\nXkVzu+c+OpmA/3U1Jmq/xUQ9HF0VhnRUwzB01Puo9/c7F9b44r1EXRR4drO8T2Ky\nHZ2KwAl3c6yM6w+o+i75pozqFkjqMfEeBcE3dhNFvxBWKWk3Gw4fkVHpggb6o1Ra\nawevB2pLhI9JnACG5u6jSx8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-fbsvc@soil-health-project.iam.gserviceaccount.com",
+  "client_id": "113718632746054154349",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-fbsvc%40soil-health-project.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
